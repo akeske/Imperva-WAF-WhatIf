@@ -1,0 +1,153 @@
+<br />
+
+<div class="container-md">
+  <div class="row">
+    <h3>Imperva WAF | Security rules What If</h3>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <form [formGroup]="fakeUserForm" (ngSubmit)="onSubmit(fakeUserForm)">
+        <div class="form-group">
+          <label for="ClientIP" class="required">Client IP</label>
+          <input
+            class="form-control"
+            id="ClientIP"
+            formControlName="ClientIP"
+            type="string"
+            placeholder="User's IP address"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="ClientType" class="required">Client Type</label>
+          <ng-select
+            id="ClientType"
+            formControlName="ClientType"
+            [items]="clientTypes"
+            bindLabel="name"
+            placeholder="Select client type depends on Imperva's categorization"
+            [required]="true"
+            [multiple]="false">
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <label for="ClientId" class="required">Client ID</label>
+          <ng-select
+            id="ClientId"
+            formControlName="ClientId"
+            placeholder="Client ID - Imperva's list"
+            [required]="true"
+            [multiple]="false">
+            <ng-option *ngFor="let clientId of clientIds" [value]="clientId.id"
+              >{{ clientId.id }}&nbsp;-&nbsp;{{ clientId.name }}</ng-option
+            >
+          </ng-select>
+          <!-- <input
+            class="form-control"
+            id="ClientId"
+            formControlName="ClientId"
+            type="number"
+            placeholder="Client ID - Imperva's list"
+            required /> -->
+          <div class="text-end">
+            <a
+              href="https://docs.imperva.com/en-US/bundle/cloud-application-security/page/settings/client-classification.htm"
+              target="_blank"
+              >Imperva's Client IDs</a
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="CountryCode">Country Code</label>
+          <input
+            class="form-control"
+            id="CountryCode"
+            formControlName="CountryCode"
+            type="text"
+            placeholder="User's Country Code depends on IP address" />
+        </div>
+        <div class="form-group">
+          <label for="IPReputationRiskLevel">IP Reputation Level</label>
+          <ng-select
+            id="IPReputationRiskLevel"
+            formControlName="IPReputationRiskLevel"
+            [items]="ipReputationRiskLevels"
+            bindLabel="name"
+            placeholder="Select IP reputation level"
+            [multiple]="false">
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <label for="MaliciousIPList">Malicious IP List</label>
+          <ng-select
+            id="MaliciousIPList"
+            formControlName="MaliciousIPList"
+            [items]="maliciousIPList"
+            bindLabel="name"
+            placeholder="Select if IP is Malicious"
+            [multiple]="false">
+          </ng-select>
+        </div>
+
+        <div class="form-group">
+          <label for="ASN">ASN number</label>
+          <input
+            class="form-control"
+            id="ASN"
+            formControlName="ASN"
+            type="number"
+            placeholder="User's ASN number" />
+        </div>
+        <div class="form-group">
+          <label for="URL">URL Contains</label>
+          <input
+            class="form-control"
+            id="URL"
+            formControlName="URL"
+            type="string"
+            placeholder="URL contains specific string" />
+        </div>
+
+        <br />
+        <button
+          type="submit"
+          class="btn btn-primary float-end"
+          [disabled]="fakeUserForm.invalid">
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <div class="col-sm-8">
+      <div ngbAccordion [closeOthers]="true">
+        <div ngbAccordionItem *ngFor="let rule of rules">
+          <button ngbAccordionButton>
+            <div
+              class="overflow-auto"
+              [ngClass]="rule.result ? 'text-success' : 'text-danger'">
+              {{ rule.rule }}
+            </div>
+          </button>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ng-template>
+                <ul *ngFor="let token of rule.ruleExpressions">
+                  <li>
+                    <p
+                      class="overflow-auto"
+                      [ngClass]="token.result ? 'text-success' : 'text-danger'">
+                      {{ token.ruleExpression }}
+                    </p>
+                  </li>
+                </ul>
+                <p class="text-end bd-highlight">
+                  <small>{{ rule.boolExpression }}</small>
+                </p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
