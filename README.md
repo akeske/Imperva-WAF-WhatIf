@@ -8,7 +8,7 @@ The idea is from Microsoft AAD Conditional Access What if and powershell WhatIf 
 
 Execute `npm i`, `ng serve`, navigate `http://localhost:4200/`, and play.
 
-![Two containers of whatif and results](https://raw.githubusercontent.com/akeske/Imperva-WAF-WhatIf/main/images/image1..png)
+![Two containers of whatif and results](https://raw.githubusercontent.com/akeske/Imperva-WAF-WhatIf/main/images/image1.png)
 ![Results per rule](https://raw.githubusercontent.com/akeske/Imperva-WAF-WhatIf/main/images/image2.png)
 
 ### Edit the rules
